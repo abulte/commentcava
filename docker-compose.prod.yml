@@ -3,6 +3,9 @@ version: '3'
 services:
   db:
     image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     volumes:
       - database:/var/lib/postgresql/data
     networks:
@@ -15,7 +18,7 @@ services:
     image: abulte/commentcava
     command: gunicorn -w 4 -b 0.0.0.0:8000 app:app
     environment:
-      - DB_DSN=postgresql://postgres@db:5432/postgres
+      - DB_DSN=postgresql://postgres:postgres@db:5432/postgres
     depends_on:
       - db
     networks:
@@ -31,7 +34,7 @@ services:
 networks:
   traefik-net:
     external: true
-  cachet:
+  commentcava:
     external: false
 
 volumes:
