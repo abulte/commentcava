@@ -1,9 +1,11 @@
 import os
 import dataset
-from datetime import datetime, date, timedelta
+from datetime import datetime
 
 from flask import Flask, render_template, jsonify, request, abort
 from flask_cors import CORS
+
+from utils import fix_end_date
 
 app = Flask(__name__,
             static_folder="../dist/static",
@@ -11,13 +13,6 @@ app = Flask(__name__,
 cors = CORS(app, resources={r"/api/*": {"origins": "http://localhost:8080"}})
 
 db = dataset.connect(os.getenv('DB_DSN', 'sqlite:///commentcava.db'))
-
-
-def fix_end_date(end_date):
-    """Add a day to end date"""
-    parsed = date.fromisoformat(end_date)
-    parsed += timedelta(days=1)
-    return parsed.isoformat()
 
 
 @app.route("/api/mood", methods=['POST'])

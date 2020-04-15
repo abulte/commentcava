@@ -1,4 +1,5 @@
 backend/pyenv
 backend/__pycache__
 backend/*.db
+backend/*.csv
 frontend/
