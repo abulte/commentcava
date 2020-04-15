@@ -1,6 +1,6 @@
 import os
 import dataset
-from datetime import datetime
+from datetime import datetime, date, timedelta
 
 from flask import Flask, render_template, jsonify, request, abort
 from flask_cors import CORS
@@ -11,6 +11,13 @@ app = Flask(__name__,
 cors = CORS(app, resources={r"/api/*": {"origins": "http://localhost:8080"}})
 
 db = dataset.connect(os.getenv('DB_DSN', 'sqlite:///commentcava.db'))
+
+
+def fix_end_date(end_date):
+    """Add a day to end date"""
+    parsed = date.fromisoformat(end_date)
+    parsed += timedelta(days=1)
+    return parsed.isoformat()
 
 
 @app.route("/api/mood", methods=['POST'])
@@ -50,8 +57,9 @@ def get_moods_by_indicator(indicator):
         return abort(403)
     start = request.args.get('start')
     end = request.args.get('end')
+    end = fix_end_date(end)
     statement = f"""SELECT {indicator}, COUNT(*) AS count FROM mood
-    WHERE created_at >= :start AND created_at <= :end GROUP BY {indicator}"""
+    WHERE created_at >= :start AND created_at < :end GROUP BY {indicator}"""
     data = db.query(statement, start=start, end=end)
     return jsonify(list(data))
 
@@ -60,8 +68,9 @@ def get_moods_by_indicator(indicator):
 def get_moods():
     start = request.args.get('start')
     end = request.args.get('end')
+    end = fix_end_date(end)
     table = db["mood"]
-    data = table.find(created_at={'>=': start, '<=': end},
+    data = table.find(created_at={'>=': start, '<': end},
                       order_by="-created_at")
     return jsonify(list(data))
 
@@ -69,5 +78,5 @@ def get_moods():
 @app.route("/", defaults={"path": ""})
 # allows routing in vuejs
 @app.route("/<path:path>")
-def index():
+def index(path):
     return render_template("index.html")
