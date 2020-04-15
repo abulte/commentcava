@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+  web:
+    image: abulte/commentcava
+    command: gunicorn -w 4 -b 0.0.0.0:8000 app:app
+    environment:
+      - DB_DSN=postgresql://postgres@db:5432/postgres
+    depends_on:
+      - db

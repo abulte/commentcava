@@ -1,3 +1,4 @@
+import os
 import dataset
 from datetime import datetime
 
@@ -9,7 +10,7 @@ app = Flask(__name__,
             template_folder="../dist")
 cors = CORS(app, resources={r"/api/*": {"origins": "http://localhost:8080"}})
 
-db = dataset.connect('sqlite:///commentcava.db')
+db = dataset.connect(os.getenv('DB_DSN', 'sqlite:///commentcava.db'))
 
 
 @app.route("/")
