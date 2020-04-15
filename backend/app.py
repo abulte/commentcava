@@ -2,7 +2,7 @@ import os
 import dataset
 from datetime import datetime
 
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, abort
 from flask_cors import CORS
 
 app = Flask(__name__,
@@ -11,11 +11,6 @@ app = Flask(__name__,
 cors = CORS(app, resources={r"/api/*": {"origins": "http://localhost:8080"}})
 
 db = dataset.connect(os.getenv('DB_DSN', 'sqlite:///commentcava.db'))
-
-
-@app.route("/")
-def index():
-    return render_template("index.html")
 
 
 @app.route("/api/mood", methods=['POST'])
@@ -43,7 +38,36 @@ def create_mood():
 
 @app.route("/api/mood/<mood_id>", methods=['DELETE'])
 def delete_mood(mood_id):
-    random = request.args.get('random', '')
-    table = db['mood']
+    random = request.args.get("random", "")
+    table = db["mood"]
     deleted = table.delete(id=mood_id, random=random)
     return '', 204 if deleted else 404
+
+
+@app.route("/api/moods/<indicator>")
+def get_moods_by_indicator(indicator):
+    if indicator == 'name':
+        return abort(403)
+    start = request.args.get('start')
+    end = request.args.get('end')
+    statement = f"""SELECT {indicator}, COUNT(*) AS count FROM mood
+    WHERE created_at >= :start AND created_at <= :end GROUP BY {indicator}"""
+    data = db.query(statement, start=start, end=end)
+    return jsonify(list(data))
+
+
+@app.route("/api/moods")
+def get_moods():
+    start = request.args.get('start')
+    end = request.args.get('end')
+    table = db["mood"]
+    data = table.find(created_at={'>=': start, '<=': end},
+                      order_by="-created_at")
+    return jsonify(list(data))
+
+
+@app.route("/", defaults={"path": ""})
+# allows routing in vuejs
+@app.route("/<path:path>")
+def index():
+    return render_template("index.html")
