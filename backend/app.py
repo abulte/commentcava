@@ -22,7 +22,6 @@ def create_mood():
     form_keys = [
         "random",
         "mood",
-        "name",
         "mood_vs_last_week",
         "fatigue",
         "fatigue_vs_last_week",

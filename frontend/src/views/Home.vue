@@ -9,6 +9,9 @@
       </b-alert>
       <LGTM></LGTM>
     </div>
+    <b-alert show dismissible v-if="!moodId">
+      L'objectif de ce questionnaire est de...
+    </b-alert>
     <b-form @submit.prevent="onSubmit" v-if="!moodId">
       <b-form-group class="mt-3" label-size="lg" label="Mon moral" description="C'est le seul champ obligatoire 😉">
         <b-form-radio inline required name="mood" size="lg" v-model="form.mood" value="tres_bien">😀</b-form-radio>
@@ -17,16 +20,17 @@
         <b-form-radio inline required name="mood" size="lg" v-model="form.mood" value="pas_bien">🙁</b-form-radio>
       </b-form-group>
 
-      <b-form-group class="" label-size="lg"
-        label="Mon nom"
-        description="Pour qu'on puisse agir sur d'éventuelles alertes, mais ce n'est pas obligé du tout !"
-      >
-        <b-form-input
-          v-model="form.name"
-          type="text"
-          placeholder="Anonymous"
-        ></b-form-input>
+      <b-form-group class="" label-size="lg" label="Une idée ? Un problème ? Une suggestion ? Un coup de gueule ? Un haïku ? C'est ici !">
+        <b-form-textarea
+          v-model="form.thoughts"
+          placeholder=""
+          rows="3"
+        ></b-form-textarea>
       </b-form-group>
+
+      <b-button type="submit" variant="primary">Envoyer 🚀</b-button> Tu peux t'arrêter ici ou continuer et répondre à un plus de questions ⬇️
+
+      <hr>
 
       <b-form-group class="" label-size="lg" label="Par rapport à la semaine dernière, je vais…">
         <b-form-radio inline name="mood_vs_last_week" v-model="form.mood_vs_last_week" value="same">Pareil</b-form-radio>
@@ -67,16 +71,6 @@
         <b-form-radio inline name="proximity_etalab" v-model="form.proximity_etalab" value="very_yes">Tout à fait d’accord</b-form-radio>
       </b-form-group>
 
-      <b-form-group class="" label-size="lg" label="Une idée ? Un problème ? Une suggestion ? Un coup de gueule ? Un haïku ? C'est ici !">
-        <b-form-textarea
-          v-model="form.thoughts"
-          placeholder="Un vieil étang
-Une grenouille qui plonge,
-Le bruit de l'eau."
-          rows="3"
-        ></b-form-textarea>
-      </b-form-group>
-
       <b-button type="submit" variant="primary">Envoyer 🚀</b-button>
     </b-form>
   </div>
@@ -88,7 +82,6 @@ import LGTM from '@/components/LGTM.vue'
 const BASE_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:5000' : ''
 const FORM_STRUCTURE = {
   mood: '',
-  name: '',
   mood_vs_last_week: '',
   fatigue: '',
   fatigue_vs_last_week: '',
@@ -127,7 +120,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>
