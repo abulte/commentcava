@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container mb-3">
     <h1>Comment ça va cette semaine&nbsp;?</h1>
     <div class="success" v-if="moodId">
       <b-alert variant="success" show>
