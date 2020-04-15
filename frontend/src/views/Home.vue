@@ -10,7 +10,7 @@
       <LGTM></LGTM>
     </div>
     <b-form @submit.prevent="onSubmit" v-if="!moodId">
-      <b-form-group class="mt-3" label-size="lg" label="Mon humeur" description="C'est le seul champ obligatoire 😉">
+      <b-form-group class="mt-3" label-size="lg" label="Mon moral" description="C'est le seul champ obligatoire 😉">
         <b-form-radio inline required name="mood" size="lg" v-model="form.mood" value="tres_bien">😀</b-form-radio>
         <b-form-radio inline required name="mood" size="lg" v-model="form.mood" value="bien">🙂</b-form-radio>
         <b-form-radio inline required name="mood" size="lg" v-model="form.mood" value="moyen">😐</b-form-radio>
@@ -18,7 +18,7 @@
       </b-form-group>
 
       <b-form-group class="" label-size="lg"
-        label="Ton nom"
+        label="Mon nom"
         description="Pour qu'on puisse agir sur d'éventuelles alertes, mais ce n'est pas obligé du tout !"
       >
         <b-form-input
