@@ -19,13 +19,24 @@ def index():
 
 @app.route("/api/mood", methods=['POST'])
 def create_mood():
-    data = request.json
-    table = db['mood']
-    record_id = table.insert({
-        "created_at": datetime.now(),
-        "mood": data['mood'],
-        "random": data['random']
-    })
+    data = {}
+    table = db["mood"]
+    form_keys = [
+        "random",
+        "mood",
+        "name",
+        "mood_vs_last_week",
+        "fatigue",
+        "fatigue_vs_last_week",
+        "workload",
+        "proximity_project",
+        "proximity_etalab",
+        "thoughts"
+    ]
+    for key in form_keys:
+        data[key] = request.json[key]
+    data["created_at"] = datetime.now()
+    record_id = table.insert(data)
     return jsonify({"id": record_id}), 201
 
 

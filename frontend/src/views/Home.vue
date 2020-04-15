@@ -10,40 +10,71 @@
       <LGTM></LGTM>
     </div>
     <b-form @submit.prevent="onSubmit" v-if="!moodId">
-      <b-form-group label="Mon humeur">
-        <b-form-radio required name="mood" size="lg" v-model="form.mood" value="tres_bien">😀</b-form-radio>
-        <b-form-radio required name="mood" size="lg" v-model="form.mood" value="bien">🙂</b-form-radio>
-        <b-form-radio required name="mood" size="lg" v-model="form.mood" value="moyen">😐</b-form-radio>
-        <b-form-radio required name="mood" size="lg" v-model="form.mood" value="pas_bien">🙁</b-form-radio>
+      <b-form-group class="mt-3" label-size="lg" label="Mon humeur" description="C'est le seul champ obligatoire 😉">
+        <b-form-radio inline required name="mood" size="lg" v-model="form.mood" value="tres_bien">😀</b-form-radio>
+        <b-form-radio inline required name="mood" size="lg" v-model="form.mood" value="bien">🙂</b-form-radio>
+        <b-form-radio inline required name="mood" size="lg" v-model="form.mood" value="moyen">😐</b-form-radio>
+        <b-form-radio inline required name="mood" size="lg" v-model="form.mood" value="pas_bien">🙁</b-form-radio>
       </b-form-group>
 
-      <b-form-group
-        id="input-group-1"
-        label="Email address:"
-        label-for="input-1"
-        description="We'll never share your email with anyone else."
+      <b-form-group class="" label-size="lg"
+        label="Ton nom"
+        description="Pour qu'on puisse agir sur d'éventuelles alertes, mais ce n'est pas obligé du tout !"
       >
         <b-form-input
-          id="input-1"
-          v-model="form.email"
-          type="email"
-          placeholder="Enter email"
-        ></b-form-input>
-      </b-form-group>
-
-      <b-form-group id="input-group-2" label="Your Name:" label-for="input-2">
-        <b-form-input
-          id="input-2"
           v-model="form.name"
-          placeholder="Enter name"
+          type="text"
+          placeholder="Anonymous"
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-4">
-        <b-form-checkbox-group v-model="form.checked" id="checkboxes-4">
-          <b-form-checkbox value="me">Check me out</b-form-checkbox>
-          <b-form-checkbox value="that">Check that out</b-form-checkbox>
-        </b-form-checkbox-group>
+      <b-form-group class="" label-size="lg" label="Par rapport à la semaine dernière, je vais…">
+        <b-form-radio inline name="mood_vs_last_week" v-model="form.mood_vs_last_week" value="same">Pareil</b-form-radio>
+        <b-form-radio inline name="mood_vs_last_week" v-model="form.mood_vs_last_week" value="better">Mieux</b-form-radio>
+        <b-form-radio inline name="mood_vs_last_week" v-model="form.mood_vs_last_week" value="worse">Moins bien</b-form-radio>
+      </b-form-group>
+
+      <b-form-group class="" label-size="lg" label="Mon état de fatigue">
+        <b-form-radio inline name="fatigue" v-model="form.fatigue" value="not_tired">Pas fatigué du tout</b-form-radio>
+        <b-form-radio inline name="fatigue" v-model="form.fatigue" value="a_little_tired">Un peu fatigué</b-form-radio>
+        <b-form-radio inline name="fatigue" v-model="form.fatigue" value="tired">Fatigué</b-form-radio>
+        <b-form-radio inline name="fatigue" v-model="form.fatigue" value="very_tired">Très fatigué</b-form-radio>
+      </b-form-group>
+
+      <b-form-group class="" label-size="lg" label="Par rapport à la semaine dernière, je suis…">
+        <b-form-radio inline name="fatigue_vs_last_week" v-model="form.fatigue_vs_last_week" value="same">Aussi fatigué</b-form-radio>
+        <b-form-radio inline name="fatigue_vs_last_week" v-model="form.fatigue_vs_last_week" value="worse">Plus fatigué</b-form-radio>
+        <b-form-radio inline name="fatigue_vs_last_week" v-model="form.fatigue_vs_last_week" value="better">Moins fatigué</b-form-radio>
+      </b-form-group>
+
+      <b-form-group class="" label-size="lg" label="Ma charge de travail cette semaine a été…">
+        <b-form-radio inline name="workload" v-model="form.workload" value="good">Adaptée</b-form-radio>
+        <b-form-radio inline name="workload" v-model="form.workload" value="too_much">Trop importante (je me suis senti dépassé.e)</b-form-radio>
+        <b-form-radio inline name="workload" v-model="form.workload" value="not_enough">Pas assez importante (je me suis senti désoeuvré.e)</b-form-radio>
+      </b-form-group>
+
+      <b-form-group class="" label-size="lg" label="J’ai l’impression de me sentir proche des autres membres de mon équipe projet">
+        <b-form-radio inline name="proximity_project" v-model="form.proximity_project" value="very_no">Pas du tout d’accord</b-form-radio>
+        <b-form-radio inline name="proximity_project" v-model="form.proximity_project" value="no">Pas d’accord</b-form-radio>
+        <b-form-radio inline name="proximity_project" v-model="form.proximity_project" value="yes">D’accord</b-form-radio>
+        <b-form-radio inline name="proximity_project" v-model="form.proximity_project" value="very_yes">Tout à fait d’accord</b-form-radio>
+      </b-form-group>
+
+      <b-form-group class="" label-size="lg" label="J’ai l’impression de me sentir proche des autres membres de l’équipe Etalab">
+        <b-form-radio inline name="proximity_etalab" v-model="form.proximity_etalab" value="very_no">Pas du tout d’accord</b-form-radio>
+        <b-form-radio inline name="proximity_etalab" v-model="form.proximity_etalab" value="no">Pas d’accord</b-form-radio>
+        <b-form-radio inline name="proximity_etalab" v-model="form.proximity_etalab" value="yes">D’accord</b-form-radio>
+        <b-form-radio inline name="proximity_etalab" v-model="form.proximity_etalab" value="very_yes">Tout à fait d’accord</b-form-radio>
+      </b-form-group>
+
+      <b-form-group class="" label-size="lg" label="Une idée ? Un problème ? Une suggestion ? Un coup de gueule ? Un haïku ? C'est ici !">
+        <b-form-textarea
+          v-model="form.thoughts"
+          placeholder="Un vieil étang
+Une grenouille qui plonge,
+Le bruit de l'eau."
+          rows="3"
+        ></b-form-textarea>
       </b-form-group>
 
       <b-button type="submit" variant="primary">Envoyer 🚀</b-button>
@@ -55,6 +86,17 @@
 import LGTM from '@/components/LGTM.vue'
 
 const BASE_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:5000' : ''
+const FORM_STRUCTURE = {
+  mood: '',
+  name: '',
+  mood_vs_last_week: '',
+  fatigue: '',
+  fatigue_vs_last_week: '',
+  workload: '',
+  proximity_project: '',
+  proximity_etalab: '',
+  thoughts: ''
+}
 
 export default {
   name: 'Home',
@@ -63,9 +105,7 @@ export default {
     return {
       moodId: '',
       random: this.getRandomString(),
-      form: {
-        mood: ''
-      }
+      form: Object.assign({}, FORM_STRUCTURE)
     }
   },
   methods: {
@@ -77,8 +117,7 @@ export default {
     },
     retry () {
       this.$http.delete(`${BASE_URL}/api/mood/${this.moodId}?random=${this.random}`).then(res => {
-        // FIXME:
-        this.form = {}
+        this.form = Object.assign({}, FORM_STRUCTURE)
         this.moodId = ''
       })
     },
@@ -88,3 +127,7 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+</style>

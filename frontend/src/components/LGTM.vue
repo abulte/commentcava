@@ -11,7 +11,7 @@ export default {
       image: {},
       limit: 1,
       // what giphy has to offer
-      maxResults: 100,
+      maxResults: 50,
       searches: ['clap clap', 'well done']
     }
   },
