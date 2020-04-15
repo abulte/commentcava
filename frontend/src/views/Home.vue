@@ -28,7 +28,8 @@
         ></b-form-textarea>
       </b-form-group>
 
-      <b-button type="submit" variant="primary">Envoyer 🚀</b-button> Tu peux t'arrêter ici ou continuer et répondre à un plus de questions ⬇️
+      <div>Tu peux t'arrêter ici en cliquant sur Envoyer ou continuer et répondre à un peu plus de questions ⬇️</div>
+      <b-button type="submit" variant="primary">Envoyer 🚀</b-button>
 
       <hr>
 
