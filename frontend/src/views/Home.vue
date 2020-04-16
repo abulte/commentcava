@@ -4,14 +4,28 @@
     <div class="success" v-if="moodId">
       <b-alert variant="success" show>
         Merci&nbsp;! On dirait que ça a marché 🤞. Si jamais tu t'es trompé, tu peux réessayer en
-        <a @click.stop="retry" href="">cliquant ici</a>, ça supprimera ton dernier essai. En revanche,
+        <a @click.prevent.stop="retry" href="">cliquant ici</a>, ça supprimera ton dernier essai. En revanche,
         si tu quittes cette page, plus moyen de revenir en arrière 😉.
       </b-alert>
       <LGTM></LGTM>
     </div>
-    <b-alert show dismissible v-if="!moodId">
-      L'objectif de ce questionnaire est de...
-    </b-alert>
+    <a href="" @click.prevent.stop v-b-toggle.collapse-why variant="primary" v-if="!moodId">Pourquoi ce questionnaire&nbsp;?</a>
+    <b-collapse id="collapse-why" class="mt-2" v-if="!moodId">
+      <b-card>
+        <p class="card-text">
+          L'objectif principal de ce questionnaire est de mieux appréhender le moral à Etalab pendant le confinement, semaine par semaine. Un autre objectif est de permettre à chacun et chacune de s'exprimer de manière anonyme si il ou elle le souhaite.
+        </p>
+        <p class="card-text">
+          A travers les résultats, nous cherchons notamment à identifier d'éventuelles baisses de moral collectives, voire individuelles à travers le champ texte libre.
+        </p>
+        <p class="card-text">
+          Idéalement, les résultats du questionnaire peuvent servir de base de discussion pour identifier des actions concrètes à mettre en oeuvre.<br>
+        </p>
+        <p class="card-text">
+          <a href="/report">Une visualisation des réponses agrégées est accessible à tous.</a>
+        </p>
+      </b-card>
+    </b-collapse>
     <b-form @submit.prevent="onSubmit" v-if="!moodId">
       <b-form-group class="mt-3" label-size="lg" label="Mon moral" description="C'est le seul champ obligatoire 😉">
         <b-form-radio inline required name="mood" size="lg" v-model="form.mood" value="tres_bien">😀</b-form-radio>
