@@ -22,8 +22,9 @@
           Idéalement, les résultats du questionnaire peuvent servir de base de discussion pour identifier des actions concrètes à mettre en oeuvre.<br>
         </p>
         <p class="card-text">
-          <a href="/report">Une visualisation des réponses agrégées est accessible à tous.</a>
+          <a href="/report">Une visualisation des réponses agrégées est accessible à tous.</a> Les données quantitatives sont anonymes et les demandes d'aides ou problèmes qui pourraient réidentifier les répondants ne sont pas intégrés dans les résultats agrégés publics.
         </p>
+        <p>Les résultats seront lus par la <em>task force</em> animation interne, actuellement composée de Alexandre et Soizic. Des éléments précis peuvent être partagés avec Perica en cas de besoin.</p>
       </b-card>
     </b-collapse>
     <b-form @submit.prevent="onSubmit" v-if="!moodId">
@@ -34,7 +35,10 @@
         <b-form-radio inline required name="mood" size="lg" v-model="form.mood" value="pas_bien">🙁</b-form-radio>
       </b-form-group>
 
-      <b-form-group class="" label-size="lg" label="Une idée ? Un problème ? Une suggestion ? Un coup de gueule ? Un haïku ? C'est ici !">
+      <b-form-group class="" label-size="lg"
+        label="Besoin d'aide ? Un problème ? Une suggestion ? Un coup de gueule ? C'est ici !"
+        description="Ces commentaires ne sont pas publics."
+      >
         <b-form-textarea
           v-model="form.thoughts"
           placeholder=""
