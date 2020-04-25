@@ -1,9 +1,8 @@
 import os
+import sys
 import csv
 import click
 import dataset
-
-from datetime import date
 
 from utils import fix_end_date
 
@@ -31,17 +30,16 @@ def export_csv(start, end, anonymous):
     if not data:
         click.echo("No data to export")
         return
-    with open(f"export-{date.today().isoformat()}.csv", "w") as outfile:
-        fieldnames = [k for k in data[0].keys() if k != 'random']
+    fieldnames = [k for k in data[0].keys() if k != 'random']
+    if anonymous:
+        fieldnames = [k for k in fieldnames if k != 'name']
+    writer = csv.DictWriter(sys.stdout, fieldnames=fieldnames)
+    writer.writeheader()
+    for d in data:
+        d.pop('random')
         if anonymous:
-            fieldnames = [k for k in fieldnames if k != 'name']
-        writer = csv.DictWriter(outfile, fieldnames=fieldnames)
-        writer.writeheader()
-        for d in data:
-            d.pop('random')
-            if anonymous:
-                d.pop('name')
-            writer.writerow(d)
+            d.pop('name')
+        writer.writerow(d)
 
 
 if __name__ == '__main__':
