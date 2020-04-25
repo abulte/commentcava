@@ -24,7 +24,7 @@
         <p class="card-text">
           <a href="/report">Une visualisation des réponses agrégées est accessible à tous.</a> Les données quantitatives sont anonymes et les demandes d'aides ou problèmes qui pourraient réidentifier les répondants ne sont pas intégrés dans les résultats agrégés publics.
         </p>
-        <p>Les résultats seront lus par la <em>task force</em> animation interne, actuellement composée de Alexandre et Soizic. Des éléments précis peuvent être partagés avec Perica en cas de besoin.</p>
+        <p>Les résultats seront lus par la <em>task force</em> animation interne, actuellement composée de Alexandre, Soizic et Olivier. Des éléments précis peuvent être partagés avec Perica en cas de besoin.</p>
       </b-card>
     </b-collapse>
     <b-form @submit.prevent="onSubmit" v-if="!moodId">
