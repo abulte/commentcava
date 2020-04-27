@@ -90,6 +90,13 @@
         <b-form-radio inline name="proximity_etalab" v-model="form.proximity_etalab" value="very_yes">Tout à fait d’accord</b-form-radio>
       </b-form-group>
 
+      <b-form-group class="" label-size="lg" label="Me sentir proche des autres membres de l’équipe Etalab est important pour moi">
+        <b-form-radio inline name="proximity_etalab_important" v-model="form.proximity_etalab_important" value="very_no">Pas du tout d’accord</b-form-radio>
+        <b-form-radio inline name="proximity_etalab_important" v-model="form.proximity_etalab_important" value="no">Pas d’accord</b-form-radio>
+        <b-form-radio inline name="proximity_etalab_important" v-model="form.proximity_etalab_important" value="yes">D’accord</b-form-radio>
+        <b-form-radio inline name="proximity_etalab_important" v-model="form.proximity_etalab_important" value="very_yes">Tout à fait d’accord</b-form-radio>
+      </b-form-group>
+
       <b-button type="submit" variant="primary">Envoyer 🚀</b-button>
     </b-form>
   </div>

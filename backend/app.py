@@ -28,6 +28,7 @@ def create_mood():
         "workload",
         "proximity_project",
         "proximity_etalab",
+        "proximity_etalab_important",
         "thoughts"
     ]
     for key in form_keys:
