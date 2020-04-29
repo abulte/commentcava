@@ -114,7 +114,8 @@ const FORM_STRUCTURE = {
   workload: '',
   proximity_project: '',
   proximity_etalab: '',
-  thoughts: ''
+  thoughts: '',
+  proximity_etalab_important: ''
 }
 
 export default {
