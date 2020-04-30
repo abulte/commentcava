@@ -2,17 +2,17 @@
   <div>
     <div v-for="field in fields" :key="field.name">
       <!-- radio field -->
-      <b-form-group v-if="field.data.type === 'radio'" class="mt-3" label-size="lg"
-          :label="field.data.label" :description="field.data.hint">
-        <b-form-radio v-for="choice in field.data.options" :key="choice[0]" inline
-            :required="field.data.required" :name="field.data.name" :size="field.data.size || 'md'"
+      <b-form-group v-if="field.type === 'radio'" class="mt-3" label-size="lg"
+          :label="field.label" :description="field.hint">
+        <b-form-radio v-for="choice in field.options" :key="choice[0]" inline
+            :required="field.required" :name="field.name" :size="field.size || 'md'"
             v-model="form[field.name]" :value="choice[0]">
           {{ choice[1] }}
         </b-form-radio>
       </b-form-group>
       <!-- textarea field -->
-      <b-form-group v-if="field.data.type === 'textarea'" label-size="lg"
-        :label="field.data.label" :description="field.data.hint"
+      <b-form-group v-if="field.type === 'textarea'" label-size="lg"
+        :label="field.label" :description="field.hint"
       >
         <b-form-textarea
           v-model="form[field.name]"
@@ -30,7 +30,7 @@ export default {
   props: {
     fields: {
       required: true,
-      type: Object
+      type: Array
     },
     form: {
       required: true,
