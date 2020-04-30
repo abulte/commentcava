@@ -6,6 +6,7 @@ from flask import Flask, render_template, jsonify, request, abort
 from flask_cors import CORS
 
 from utils import fix_end_date
+from form import form_structure
 
 app = Flask(__name__,
             static_folder="../dist/static",
@@ -13,6 +14,11 @@ app = Flask(__name__,
 cors = CORS(app, resources={r"/api/*": {"origins": "http://localhost:8080"}})
 
 db = dataset.connect(os.getenv('DB_DSN', 'sqlite:///commentcava.db'))
+
+
+@app.route("/api/structure")
+def get_structure():
+    return jsonify(form_structure)
 
 
 @app.route("/api/mood", methods=['POST'])
