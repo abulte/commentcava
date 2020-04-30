@@ -2,7 +2,7 @@
 
 Cet outil a été développé dans le cadre de la crise sanitaire du COVID-19 afin de permettre une remontée hebdomadaire simple, anonyme et sur la base du volontariat du moral de l'équipe chez [Etalab](https://www.etalab.gouv.fr).
 
-Il peut être adapté [facilement](#configuration) pour d'autres besoins et hébergé sur n'importe quel serveur supportant Python3.
+Il peut être adapté [facilement](#configuration) pour d'autres besoins et [déployé](#installation) sur n'importe quel serveur supportant Python3 et/ou Docker.
 
 ![capture](images/capture.png)
 
@@ -58,3 +58,34 @@ type = "textarea"
 required = false
 hint = "Ces commentaires ne sont pas publics."
 ```
+
+## Installation
+
+### Développement
+
+```shell
+cd backend
+pip install -r backend/requirements.txt
+FLASK_DEBUG=1 FLASK_APP=app flask run
+```
+
+L'app python sera disponible sur http://localhost:5000.
+
+Une base de données sqlite stockée dans `backend/commentcava.db` sera utilisée. Vous pouvez changer ça grâce à la variable d'environnement `DB_DSN`, par exemple pour utiliser une base postgres : `DB_DSN=postgresql://postgres@db:5432/postgres`.
+
+```shell
+cd frontend
+yarn install && yarn serve
+```
+
+L'app javascript sera disponible sur http://localhost:8080 et utilisera l'API ci-dessus.
+
+### Docker
+
+Un `docker-compose` tout-en-un est disponible. Une base postgres sera utilisée.
+
+```shell
+docker-compose up
+```
+
+L'application sera disponible sur `http://{docker-host}:8000`.
