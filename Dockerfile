@@ -10,3 +10,4 @@ COPY frontend/yarn.lock /code/frontend/
 RUN yarn install
 COPY . /code/
 RUN yarn build
+WORKDIR /code/backend
