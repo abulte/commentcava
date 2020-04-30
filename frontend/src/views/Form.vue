@@ -24,34 +24,13 @@
       <!-- form -->
       <b-form @submit.prevent="onSubmit" v-if="!moodId">
         <!-- form.top -->
-        <div v-for="(field, fieldName) in formStructure.top" :key="fieldName">
-          <!-- radio field -->
-          <b-form-group v-if="field.type === 'radio'" class="mt-3" label-size="lg"
-              :label="field.label" :description="field.hint">
-            <b-form-radio v-for="choice in field.options" :key="choice[0]" inline
-                :required="field.required" :name="fieldName" :size="field.size || 'md'"
-                v-model="form[fieldName]" :value="choice[0]">
-              {{ choice[1] }}
-            </b-form-radio>
-          </b-form-group>
-          <!-- textarea field -->
-          <b-form-group v-if="field.type === 'textarea'" label-size="lg"
-            :label="field.label" :description="field.hint"
-          >
-            <b-form-textarea
-              v-model="form[fieldName]"
-              placeholder=""
-              rows="3"
-            ></b-form-textarea>
-          </b-form-group>
-        </div>
-
+        <FormSection :fields="formStructure.top" :form="form.top"></FormSection>
+        <!-- fold -->
         <div>Tu peux t'arrêter ici en cliquant sur Envoyer ou continuer et répondre à un peu plus de questions ⬇️</div>
         <b-button type="submit" variant="primary">Envoyer 🚀</b-button>
-
         <!-- form.below -->
         <hr>
-
+        <FormSection :fields="formStructure.below" :form="form.below"></FormSection>
         <b-button type="submit" variant="primary">Envoyer 🚀</b-button>
       </b-form>
     </div>
@@ -60,34 +39,27 @@
 
 <script>
 import LGTM from '@/components/LGTM.vue'
+import FormSection from '@/components/FormSection.vue'
 
 const BASE_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:5000' : ''
-const FORM_STRUCTURE = {
-  mood: '',
-  mood_vs_last_week: '',
-  fatigue: '',
-  fatigue_vs_last_week: '',
-  workload: '',
-  proximity_project: '',
-  proximity_etalab: '',
-  thoughts: '',
-  proximity_etalab_important: ''
+const FORM_META_STRUCTURE = {
+  top: {},
+  below: {}
 }
 
 export default {
   name: 'Home',
-  components: { LGTM },
+  components: { LGTM, FormSection },
   data () {
     return {
       loading: true,
       moodId: '',
       random: this.getRandomString(),
-      form: Object.assign({}, FORM_STRUCTURE),
+      form: Object.assign({}, FORM_META_STRUCTURE),
       formStructure: ''
     }
   },
   mounted () {
-    console.log('mounted')
     this.$http.get(`${BASE_URL}/api/structure`).then(res => {
       this.formStructure = res.body
       this.loading = false
@@ -95,14 +67,15 @@ export default {
   },
   methods: {
     onSubmit () {
-      this.form.random = this.random
-      this.$http.post(`${BASE_URL}/api/mood`, this.form).then(res => {
+      const data = Object.assign({}, this.form.top, this.form.below)
+      data.random = this.random
+      this.$http.post(`${BASE_URL}/api/mood`, data).then(res => {
         this.moodId = res.body.id
       })
     },
     retry () {
       this.$http.delete(`${BASE_URL}/api/mood/${this.moodId}?random=${this.random}`).then(res => {
-        this.form = Object.assign({}, FORM_STRUCTURE)
+        this.form = Object.assign({}, FORM_META_STRUCTURE)
         this.moodId = ''
       })
     },

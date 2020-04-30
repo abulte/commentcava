@@ -25,7 +25,16 @@ top = OrderedDict({
 })
 
 below = OrderedDict({
-
+    "mood_vs_last_week": {
+        "type": "radio",
+        "label": "Par rapport à la semaine dernière, je vais…",
+        "options": [
+            ["same", "Pareil"],
+            ["better", "Mieux"],
+            ["worse", "Moins bien"],
+        ],
+        "required": False,
+    },
 })
 
 why = [
