@@ -26,12 +26,12 @@
         <!-- form.top -->
         <FormSection :fields="formStructure.top" :form="form.top"></FormSection>
         <!-- fold -->
-        <div>Tu peux t'arrêter ici en cliquant sur Envoyer ou continuer et répondre à un peu plus de questions ⬇️</div>
+        <div v-if="hasBelow">Tu peux t'arrêter ici en cliquant sur Envoyer ou continuer et répondre à un peu plus de questions ⬇️</div>
         <b-button type="submit" variant="primary">Envoyer 🚀</b-button>
         <!-- form.below -->
-        <hr>
-        <FormSection :fields="formStructure.below" :form="form.below"></FormSection>
-        <b-button type="submit" variant="primary">Envoyer 🚀</b-button>
+        <hr v-if="hasBelow">
+        <FormSection v-if="hasBelow" :fields="formStructure.below" :form="form.below"></FormSection>
+        <b-button v-if="hasBelow" type="submit" variant="primary">Envoyer 🚀</b-button>
       </b-form>
     </div>
   </div>
@@ -64,6 +64,11 @@ export default {
       this.formStructure = res.body
       this.loading = false
     })
+  },
+  computed: {
+    hasBelow () {
+      return this.formStructure.below.length > 0
+    }
   },
   methods: {
     onSubmit () {
