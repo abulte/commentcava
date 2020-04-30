@@ -2,9 +2,9 @@
 
 Cet outil a été développé dans le cadre de la crise sanitaire du COVID-19 afin de permettre une remontée hebdomadaire simple, anonyme et sur la base du volontariat du moral de l'équipe chez [Etalab](https://www.etalab.gouv.fr).
 
-Il peut être adapté [facilement](Configuration) pour d'autres besoins et hébergé sur n'importe quel serveur supportant Python3.
+Il peut être adapté [facilement](##Configuration) pour d'autres besoins et hébergé sur n'importe quel serveur supportant Python3.
 
-![capture](capture.png)
+![capture](images/capture.png)
 
 ## Configuration
 
