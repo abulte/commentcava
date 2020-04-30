@@ -26,7 +26,7 @@ why = [
 [[fields]]
 # Le formulaire a deux emplacement : `top` et `bottom`
 # L'emplacement `top` peut être utilisé pour les champs obligatoire et les plus importants
-# L'emplacement `bottom` peut être utilisé pour les champs facultatis ou moins importants
+# L'emplacement `bottom` peut être utilisé pour les champs facultatifs ou moins importants
 # L'emplacement `bottom` est facultatif
 position = "top"
 # Le nom technique du champ, doit être unique pour chaque champ
@@ -36,6 +36,7 @@ type = "radio"
 # Le nom du champ pour les humains
 label = "Mon moral"
 # Dans le cas d'un champ "radio", les différentes options
+# Sous la forme ["{clé_technique}", "{nom_humain}"]
 options = [
     [ "tres_bien", "😀",],
     [ "bien", "🙂",],
