@@ -35,6 +35,70 @@ below = OrderedDict({
         ],
         "required": False,
     },
+    "fatigue": {
+        "type": "radio",
+        "label": "Mon état de fatigue",
+        "options": [
+            ["not_tired", "Pas fatigué du tout"],
+            ["a_little_tired", "Un peu fatigué"],
+            ["tired", "Fatigué"],
+            ["very_tired", "Très fatigué"],
+        ],
+        "required": False,
+    },
+    "fatigue_vs_last_week": {
+        "type": "radio",
+        "label": "Par rapport à la semaine dernière, je suis…",
+        "options": [
+            ["same", "Aussi fatigué"],
+            ["better", "Moins fatigué"],
+            ["worse", "Plus fatigué"],
+        ],
+        "required": False,
+    },
+    "workload": {
+        "type": "radio",
+        "label": "Ma charge de travail cette semaine a été…",
+        "options": [
+            ["good", "Adaptée"],
+            ["too_much", "Trop importante (je me suis senti dépassé.e)"],
+            ["not_enough", "Pas assez importante (je me suis senti désoeuvré.e)"],
+        ],
+        "required": False,
+    },
+    "proximity_project": {
+        "type": "radio",
+        "label": "J’ai l’impression de me sentir proche des autres membres de mon équipe projet",
+        "options": [
+            ["very_no", "Pas du tout d’accord"],
+            ["no", "Pas d’accord"],
+            ["yes", "D’accord"],
+            ["very_yes", "Tout à fait d’accord"],
+        ],
+        "required": False,
+    },
+    "proximity_etalab": {
+        "type": "radio",
+        "label": "J’ai l’impression de me sentir proche des autres membres de l’équipe Etalab",
+        "options": [
+            ["very_no", "Pas du tout d’accord"],
+            ["no", "Pas d’accord"],
+            ["yes", "D’accord"],
+            ["very_yes", "Tout à fait d’accord"],
+        ],
+        "required": False,
+    },
+    "proximity_etalab_important": {
+        "type": "radio",
+        "label": "Me sentir proche des autres membres de l’équipe Etalab est important pour moi",
+        "options": [
+            ["very_no", "Pas du tout d’accord"],
+            ["no", "Pas d’accord"],
+            ["yes", "D’accord"],
+            ["very_yes", "Tout à fait d’accord"],
+        ],
+        "required": False,
+    },
 })
 
 why = [
@@ -46,8 +110,9 @@ why = [
 ]
 
 form_structure = {
-    "top": top,
-    "below": below,
+    # preserve OrderectDict by making a list
+    "top": [{"name": k, "data": v} for (k, v) in top.items()],
+    "below": [{"name": k, "data": v} for (k, v) in below.items()],
     "why": why,
     "title": title,
 }
