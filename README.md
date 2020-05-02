@@ -89,3 +89,22 @@ docker-compose up
 ```
 
 L'application sera disponible sur `http://{docker-host}:8000`.
+
+## Exploitation des données
+
+### Interface web
+
+Une interface de consultation des résultats agrégés par intervalle de dates est disponible sur `/report`.
+
+Un export CSV est disponible via la commande suivante :
+
+```shell
+$ cd backend
+$ python cli.py export-csv --help
+Usage: cli.py export-csv [OPTIONS]
+
+Options:
+  --start TEXT  Start date (eg 2012-12-01)
+  --end TEXT    End date (eg 2012-12-31)
+  --help        Show this message and exit.
+```

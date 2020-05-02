@@ -15,10 +15,9 @@ def cli():
 
 
 @cli.command()
-@click.option('--start', default=None, help='Start date (ISO)')
-@click.option('--end', default=None, help='End date (ISO)')
-@click.option('--anonymous', is_flag=True, help='Remove names')
-def export_csv(start, end, anonymous):
+@click.option('--start', default=None, help='Start date (eg 2012-12-01)')
+@click.option('--end', default=None, help='End date (eg 2012-12-31)')
+def export_csv(start, end):
     table = db["mood"]
     args = {"created_at": {}}
     if start:
@@ -31,14 +30,10 @@ def export_csv(start, end, anonymous):
         click.echo("No data to export")
         return
     fieldnames = [k for k in data[0].keys() if k != 'random']
-    if anonymous:
-        fieldnames = [k for k in fieldnames if k != 'name']
     writer = csv.DictWriter(sys.stdout, fieldnames=fieldnames)
     writer.writeheader()
     for d in data:
         d.pop('random')
-        if anonymous:
-            d.pop('name')
         writer.writerow(d)
 
 
