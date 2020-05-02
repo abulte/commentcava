@@ -6,6 +6,7 @@ from flask import Flask, render_template, jsonify, request, abort
 from flask_cors import CORS
 
 from utils import fix_end_date
+from form import form_structure, fields
 
 app = Flask(__name__,
             static_folder="../dist/static",
@@ -15,25 +16,19 @@ cors = CORS(app, resources={r"/api/*": {"origins": "http://localhost:8080"}})
 db = dataset.connect(os.getenv('DB_DSN', 'sqlite:///commentcava.db'))
 
 
+@app.route("/api/structure")
+def get_structure():
+    return jsonify(form_structure)
+
+
 @app.route("/api/mood", methods=['POST'])
 def create_mood():
     data = {}
     table = db["mood"]
-    form_keys = [
-        "random",
-        "mood",
-        "mood_vs_last_week",
-        "fatigue",
-        "fatigue_vs_last_week",
-        "workload",
-        "proximity_project",
-        "proximity_etalab",
-        "proximity_etalab_important",
-        "thoughts"
-    ]
-    for key in form_keys:
-        data[key] = request.json[key]
+    for key in fields:
+        data[key] = request.json.get(key)
     data["created_at"] = datetime.now()
+    data["random"] = request.json["random"]
     record_id = table.insert(data)
     return jsonify({"id": record_id}), 201
 
