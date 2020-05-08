@@ -108,3 +108,9 @@ Options:
   --end TEXT    End date (eg 2012-12-31)
   --help        Show this message and exit.
 ```
+
+Le CSV sera disponible sur la sortie standard. Vous pouvez utiliser la commande suivante pour exporter les résultats dans un fichier :
+
+```shell
+pyton cli.py export-csv > monfichier.csv
+```
