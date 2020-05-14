@@ -78,6 +78,14 @@ required = false
 
 [[fields]]
 position = "below"
+name = "workload_covid"
+type = "radio"
+label = "Le cas échéant, est-ce que votre surcharge de travail est due à la situation actuelle ?"
+options = [ [ "very_no", "Pas du tout d’accord",], [ "no", "Pas d’accord",], [ "yes", "D’accord",], [ "very_yes", "Tout à fait d’accord",],]
+required = false
+
+[[fields]]
+position = "below"
 name = "proximity_project"
 type = "radio"
 label = "J’ai l’impression de me sentir proche des autres membres de mon équipe projet"
@@ -98,4 +106,18 @@ name = "proximity_etalab_important"
 type = "radio"
 label = "Me sentir proche des autres membres de l’équipe Etalab est important pour moi"
 options = [ [ "very_no", "Pas du tout d’accord",], [ "no", "Pas d’accord",], [ "yes", "D’accord",], [ "very_yes", "Tout à fait d’accord",],]
+required = false
+
+[[fields]]
+position = "below"
+name = "seminaire"
+type = "radio"
+label = "Est-ce que ça vous ferait plaisir de participer à un séminaire Etalab virtuel avant les vacances ?"
+options = [
+    [ "teambuilding", "Oui, en mode team building",],
+    [ "work", "Oui, en mode stratégie / vision Etalab",],
+    [ "both", "Oui, en mode team building et stratégie / vision",],
+    [ "wait", "Je préfère attendre la rentrée pour un séminaire en présentiel",],
+    [ "no", "Non",],
+]
 required = false
