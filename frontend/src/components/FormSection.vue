@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="field in fields" :key="field.name">
+    <div class="mb-4" v-for="field in fields" :key="field.name">
       <!-- radio field -->
       <b-form-group v-if="field.type === 'radio'" class="mt-3" label-size="lg"
           :label="field.label" :description="field.hint">
@@ -19,6 +19,12 @@
           placeholder=""
           rows="3"
         ></b-form-textarea>
+      </b-form-group>
+      <!-- link field -->
+      <b-form-group v-if="field.type === 'link'" label-size="lg"
+        :label="field.label" :description="field.hint"
+      >
+        <a :href="field.link" target="_blank">{{ field.link }}</a>
       </b-form-group>
     </div>
   </div>
